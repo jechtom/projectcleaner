@@ -11,11 +11,52 @@ namespace ProjectCleaner
 {
     class Program
     {
+        static string inputFolder, outputFolder;
+            
         static void Main(string[] args)
+        {
+            // parse parameters / show help
+            if(args.Length == 2) // input and output folders are specified
+            {
+                inputFolder = args[0];
+                outputFolder = args[1];
+            }
+            else if(args.Length == 1) // only input folder specified
+            {
+                inputFolder = args[0];
+                outputFolder = inputFolder;
+            }
+            else
+            {
+                Console.WriteLine("How to use Project Cleaner:");
+                Console.WriteLine();
+                Console.WriteLine(" ProjectsCleaner.exe INPUT_FOLDER_TO_ANALYZE [OUTPUT_FOLDER_FOR_REPORTS]");
+                Console.WriteLine();
+                Console.WriteLine(" INPUT_FOLDER_TO_ANALYZE:");
+                Console.WriteLine("  - Required. Path to folder which will be analyzed.");
+                Console.WriteLine();
+                Console.WriteLine(" OUTPUT_FOLDER_FOR_REPORTS:");
+                Console.WriteLine("  - Optional. Path to folder where reports will be saved.");
+                Console.WriteLine("    If not set, input folder will be used.");
+                Console.WriteLine();
+                return;
+            }
+                
+            // make paths absolute
+            if (!Path.IsPathRooted(inputFolder))
+                inputFolder = Path.Combine(Environment.CurrentDirectory, inputFolder);
+
+            if (!Path.IsPathRooted(outputFolder))
+                outputFolder = Path.Combine(Environment.CurrentDirectory, outputFolder);
+
+            Start();
+        }
+
+        private static void Start()
         {
             // fetch list of files
             var dirReader = new DirectoryReader();
-            dirReader.RootPath = Environment.CurrentDirectory;
+            dirReader.RootPath = "";
             Console.WriteLine(string.Format("Root Path:\n{0}", dirReader.RootPath));
             Console.WriteLine(string.Format("Reading directories and files..."));
             var data = dirReader.ReadDirectory();
@@ -46,12 +87,12 @@ namespace ProjectCleaner
             string reportBasePath = data.FullPath; // generate to root path
 
             // report: duplicates
-            using(var sw = OpenReportFile(data, reportBasePath, "cleaner_report_duplicates.txt"))
+            using (var sw = OpenReportFile(data, reportBasePath, "cleaner_report_duplicates.txt"))
             {
                 sw.WriteLine("Duplicates:");
                 foreach (var item in duplicates)
                 {
-                    sw.WriteLine(string.Format(" [duplicate] Count: {0}; Size: {1} Duplicate size: {2}", 
+                    sw.WriteLine(string.Format(" [duplicate] Count: {0}; Size: {1} Duplicate size: {2}",
                             item.Instances.Count,
                             SizeFormatter.Default.Format(item.HashWithSize.Size),
                             SizeFormatter.Default.Format(item.HashWithSize.Size * (item.Instances.Count - 1))
