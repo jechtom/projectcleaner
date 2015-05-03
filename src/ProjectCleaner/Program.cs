@@ -56,7 +56,7 @@ namespace ProjectCleaner
         {
             // fetch list of files
             var dirReader = new DirectoryReader();
-            dirReader.RootPath = "";
+            dirReader.RootPath = inputFolder;
             Console.WriteLine(string.Format("Root Path:\n{0}", dirReader.RootPath));
             Console.WriteLine(string.Format("Reading directories and files..."));
             var data = dirReader.ReadDirectory();
@@ -84,7 +84,7 @@ namespace ProjectCleaner
             Console.WriteLine(string.Format("Finished."));
 
             // generate reports
-            string reportBasePath = data.FullPath; // generate to root path
+            string reportBasePath = outputFolder;
 
             // report: duplicates
             using (var sw = OpenReportFile(data, reportBasePath, "cleaner_report_duplicates.txt"))
