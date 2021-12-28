@@ -24,17 +24,24 @@ namespace ProjectCleaner.Core
             var dir = new DirectoryDto();
             dir.FullPath = dirPath;
 
-            foreach (var filePath in Directory.EnumerateFiles(dirPath))
+            try
             {
-                var nestedFile = new FileDto();
-                nestedFile.FullPath = filePath;
-                dir.Entries.Add(nestedFile);
-            }
+                foreach (var filePath in Directory.EnumerateFiles(dirPath))
+                {
+                    var nestedFile = new FileDto();
+                    nestedFile.FullPath = filePath;
+                    dir.Entries.Add(nestedFile);
+                }
 
-            foreach (var nestedDirPath in Directory.EnumerateDirectories(dirPath))
+                foreach (var nestedDirPath in Directory.EnumerateDirectories(dirPath))
+                {
+                    var nestedDir = VisitDirectory(nestedDirPath, parent: dir);
+                    dir.Entries.Add(nestedDir);
+                }
+            }
+            catch(PathTooLongException)
             {
-                var nestedDir = VisitDirectory(nestedDirPath, parent: dir);
-                dir.Entries.Add(nestedDir);
+                Console.WriteLine("Ignoring too long path: " + dirPath);
             }
 
             return dir;

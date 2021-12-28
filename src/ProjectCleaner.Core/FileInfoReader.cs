@@ -32,8 +32,15 @@ namespace ProjectCleaner.Core
 
         protected override void VisitFile(FileDto file)
         {
-            var info = new FileInfo(file.FullPath);
-            file.Size = info.Length;
+            try
+            {
+                var info = new FileInfo(file.FullPath);
+                file.Size = info.Length;
+            }
+            catch (PathTooLongException)
+            {
+                Console.WriteLine("Ignoring too long path: " + file.FullPath);
+            }
         }
     }
 }
