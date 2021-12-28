@@ -1,6 +1,6 @@
-# Basic usage
+# How to use ProjectCleaner?
 
-## How to execute cleaner?
+## Parameters
 
 Build and execute `ProjectCleaner.exe` with these parameters:
 
@@ -41,3 +41,4 @@ This feature currently supports CSPROJ, VBPROJ project files in XML format.
 # Known issues
 
 * If file/folder is not accessible, application will crash (no error handling)
+* If OutputPath in project file contains `../` (by default it is `bin` or `bin/Release` or `bin/Debug`) then script will not delete this folder
