@@ -67,16 +67,10 @@ namespace ProjectCleaner
             new FileInfoReader().ReadFileInfos(data);
             Console.WriteLine(string.Format("Total size: {0}", SizeFormatter.Default.Format(data.Size)));
 
-            // read hashes
-            Console.WriteLine(string.Format("Calculating hash..."));
-            var hashReader = new HashReader();
-            hashReader.NotifyMinimumInterval = TimeSpan.FromSeconds(3);
-            hashReader.ProgressChange += (s, e) => { Console.WriteLine(string.Format("Hashing progress: {0}", e)); };
-            hashReader.ReadHashes(data);
-
             // analyze
             Console.WriteLine(string.Format("Finding duplicates..."));
-            var duplicates = new DuplicateFileFinder().FindDuplicates(data);
+            var hashReader = new HashReader();
+            var duplicates = new DuplicateFileFinder(hashReader).FindDuplicates(data);
             Console.WriteLine(string.Format("Finding GIT repositories to compress..."));
             var gitRepositories = new GitFolderFinder().FindRepositories(data);
             Console.WriteLine(string.Format("Finding Visual Studio projects to clean..."));

@@ -17,7 +17,8 @@ namespace ProjectCleaner.Core.Dtos
         }
 
 
-        public byte[] Hash { get; set; }
+        public bool IsHashKnown { get; set; }
+        public HashAndSize HashAndSize { get; set; }
         public long Size { get; set; }
     }
 }

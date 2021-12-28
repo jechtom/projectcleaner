@@ -44,12 +44,11 @@
     <Compile Include="CountVisitor.cs" />
     <Compile Include="Dtos\DuplicateFileDto.cs" />
     <Compile Include="DuplicateFileFinder.cs" />
+    <Compile Include="HashReader.cs" />
     <Compile Include="VisualStudioCleaner.cs" />
     <Compile Include="HashAndSize.cs" />
     <Compile Include="Hash.cs" />
-    <Compile Include="HashReader.cs" />
     <Compile Include="FileInfoReader.cs" />
-    <Compile Include="HashReaderProgressArgs.cs" />
     <Compile Include="SizeFormatter.cs" />
     <Compile Include="TreeVisitor.cs" />
     <Compile Include="GitFolderFinder.cs" />
