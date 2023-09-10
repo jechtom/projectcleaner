@@ -1,5 +1,9 @@
 # How to use ProjectCleaner?
 
+## Overview
+
+ProjectCleaner is a utility tool designed to help maintain and clean up project directories by identifying and reporting potential issues such as duplicate files, unnecessary Visual Studio files, and suggesting Git garbage collection commands. This tool is handy for developers and project managers who want to keep their project directories clean and organized.
+
 ## Parameters
 
 Build and execute `ProjectCleaner.exe` with these parameters:
