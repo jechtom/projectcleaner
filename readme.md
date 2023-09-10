@@ -4,43 +4,28 @@
 
 ProjectCleaner is a utility tool designed to help maintain and clean up project directories by identifying and reporting potential issues such as duplicate files, unnecessary Visual Studio files, and suggesting Git garbage collection commands. This tool is handy for developers and project managers who want to keep their project directories clean and organized.
 
-## Parameters
+## Features
 
-Build and execute `ProjectCleaner.exe` with these parameters:
+- **Directory Analysis**: Analyzes a specified directory to identify potential issues.
+- **Duplicate File Finder**: Identifies duplicate files within the directory.
+- **Visual Studio Cleaner**: Suggests Visual Studio files that can be cleaned up.
+- **Git Garbage Collection**: Suggests Git GC commands for identified Git repositories within the directory.
+- **Report Generation**: Generates detailed reports for the identified issues.
 
-```
+## How to Use
+
+To use the ProjectCleaner, you need to run the executable with the appropriate parameters. Here is how you can do it:
+
+```sh
 ProjectsCleaner.exe INPUT_FOLDER_TO_ANALYZE [OUTPUT_FOLDER_FOR_REPORTS]
 ```
 
-`INPUT_FOLDER_TO_ANALYZE`
-  - Required. Path to folder which will be analyzed.
+- `INPUT_FOLDER_TO_ANALYZE`: Required. The path to the folder will be analyzed.
+- `OUTPUT_FOLDER_FOR_REPORTS`: Optional. The path to the folder where reports will be saved. If not set, the input folder will be used.
 
-`OUTPUT_FOLDER_FOR_REPORTS`
-  - Optional. Path to folder where reports will be saved.
-    If not set, input folder will be used.
+## Note
 
-For example: `ProjectsCleaner.exe c:\Dev\`
-
-## What will happen?
-
-All data in given folder will be read and reports will be generated in output folder.
-
-There are these types of reports:
-
-### GIT GC Clean Script
-
-This report is also CMD script which can be executed. It will run GC command on each GIT repository found inside given location. 
-This can reduce number and size of files in repository folder.
-
-### Duplicate Files Report
-
-You can review list of duplicate files in given folder.
-Files are compared by binary content and ordered by total size (size multipled by number of files).
-
-### Visual Studio Clean Project Script
-
-This script can delete all output folders (`bin/Release` etc.) and `obj` folder inside project directory.
-This feature currently supports CSPROJ, VBPROJ project files in XML format.
+When you run the ProjectCleaner, it only generates reports based on the analysis of the specified directory. No actions or changes are made to the files or directories during the run. It is up to the user to review the reports and decide whether to execute the suggested actions. Always review the reports carefully to avoid unintended loss of data or changes to your project directories.
 
 # Known issues
 
